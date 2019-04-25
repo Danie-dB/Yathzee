@@ -1,8 +1,5 @@
 import java.util.*;
 
-
-//RECHT PRINTEN??
-
 public class PogingEen {
 	public static void main(String[] args) {
 		YathzeeSpel letsGo = new YathzeeSpel();
@@ -25,81 +22,79 @@ class YathzeeSpel {
 	
 	void Spelen() {
 		boolean ja = true;
-		System.out.println("Worpmogelijkheden:");
+		int Worpie = 1;
+		System.out.println("Worpmogelijkheden: ");
 		System.out.println("1 2 3 4 5");
 		
 		while (ja) {
-			System.out.println("Dobbelen maar! (klik q om te stoppen)");
-			int x = 0;
+			System.out.println("Dobbelen maar!");
+			System.out.println("Enter = gooien, Q = stoppen");
+			Worp dobbelen = new Worp(); 
 			String invoer = scanner.nextLine();
 			invoer = invoer.toLowerCase();
 			switch (invoer) {
-			case "q":
-				ja = false;
-				System.out.println("U bent gestopt.");
-			default:
-				for (Dobbelsteen uitkomst : DobbelRij) {
-					if (blokkeerarray[x] == 0) {
-					uitkomst.d1 = uitkomst.Werpen();
-					System.out.println(uitkomst.d1 + " ");
+			
+				case "q":
+					ja = false;
+					System.out.println("U bent gestopt.");
+					break;
+				default:
+					System.out.println("Worp " + Worpie++ + ": ");
+					
+						for (int g = 0; g <DobbelRij.size(); g++) {
+							Dobbelsteen huidige = DobbelRij.get(g);
+								if (blokkeerarray[g]==0) {
+								huidige.d1 = huidige.Werpen();
+						}
+								dobbelen.Geschiedde(huidige.d1);
+						}
+						for (int uitslagPrint : dobbelen.WorpGeschiedenis) {
+							System.out.print(uitslagPrint);
+							System.out.print(" ");
+						}
+					System.out.println(" ");
+					System.out.println("Welke steen/stenen wilt u graag vasthouden?");
+					Vasthouden();
+					System.out.println("Nog een rondje");
 					}
-		//			Dobbelsteen.d1[x] = uitkomst.d1;
-				}
-		//		Dobbelsteen.Werpen();
-		//		YathzeeSpel.DobbelRij.add(Dobbelsteen.geworpen);
-				
-				System.out.println("Nog een rondje");
-				
 			}
 		}
-    }
 	
 	void Vasthouden() {
-		String invoer = scanner.nextLine();
-		Integer.parseInt(invoer);
+		String reeks = scanner.nextLine();
+		for (int i =0; i < reeks.length(); i++) {
+			String positie = reeks.substring(i, i+1);
+			Integer intpositie = Integer.parseInt(positie) -1;
+			blokkeerarray[intpositie] = 1;
+		}
 		
 	}
 }
 
 class Dobbelsteen {
-		int [] geworpen = new int [5];
 		int d1;
 		
 		int Werpen() {
 			Random getal = new Random();
-			int d1 = getal.nextInt(5)+1;
+			d1 = getal.nextInt(6)+1;
 			return d1;
 		}
 }
 
 
-/*
- * class Dobbelsteen {
-		int [] geworpen = new int [5];
-		int d1;
-		
-		int Werpen() {
-			Random getal = new Random();
-			int d1 = getal.nextInt(5)+1;
-			return d1;
-		}
-}
-
-
-class Gooien {
-	int[] dobbelsteen = new int[5];
-			for (int i =1; i<7; i++) {
-				System.out.println(i);
-			}
-}
-
-	void WerpenFirst() {
-		Random getal = new Random();
-		int d1 = getal.nextInt(5)+1;
-		int d2 = getal.nextInt(5)+1;
-		int d3 = getal.nextInt(5)+1;
-		int d4 = getal.nextInt(5)+1;
-		int d5 = getal.nextInt(5)+1;
-		System.out.println(d1 + " " + d2 + " " + d3 + " " + d4 + " " + d5);
+class Worp {
+	ArrayList<Integer> WorpGeschiedenis = new ArrayList<Integer>();
+		void Geschiedde(int d2) {
+			WorpGeschiedenis.add(d2);
 	}
-*/
+	
+}
+
+class Speler {
+	Scanner scanner = new Scanner(System.in);
+	ArrayList<Speler> History = new ArrayList<>();
+	String Speler1 = scanner.nextLine();
+	Worp Ed = new Worp(); 
+	
+	
+}
