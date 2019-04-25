@@ -1,42 +1,53 @@
 import java.util.*;
 
+
+//RECHT PRINTEN??
+
 public class PogingEen {
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
 		YathzeeSpel letsGo = new YathzeeSpel();
 		System.out.println("Let's play!");
-		
 		letsGo.Spelen();
 		
 	}
 }
 
-
-
-
-
 class YathzeeSpel {
 	Scanner scanner = new Scanner(System.in);
-	ArrayList<Integer> DobbelRij = new ArrayList<>();
-	Dobbelsteen tal = new Dobbelsteen();
-	tal.Werpen(d1) = 0;
+	ArrayList<Dobbelsteen> DobbelRij = new ArrayList<>();
+	int[] blokkeerarray = new int[] {0,0,0,0,0};
 	
-	
+	YathzeeSpel(){
+		for (int d = 0; d < 5; d++) {
+			DobbelRij.add(d, new Dobbelsteen());
+			} 
+		}
 	
 	void Spelen() {
 		boolean ja = true;
-		System.out.println("Worp");
+		System.out.println("Worpmogelijkheden:");
 		System.out.println("1 2 3 4 5");
 		
 		while (ja) {
-			System.out.println("Welke wilt u vasthouden? (q om te stoppen)");
+			System.out.println("Dobbelen maar! (klik q om te stoppen)");
+			int x = 0;
 			String invoer = scanner.nextLine();
+			invoer = invoer.toLowerCase();
 			switch (invoer) {
 			case "q":
 				ja = false;
 				System.out.println("U bent gestopt.");
-				break;
 			default:
+				for (Dobbelsteen uitkomst : DobbelRij) {
+					if (blokkeerarray[x] == 0) {
+					uitkomst.d1 = uitkomst.Werpen();
+					System.out.println(uitkomst.d1 + " ");
+					}
+		//			Dobbelsteen.d1[x] = uitkomst.d1;
+				}
+		//		Dobbelsteen.Werpen();
+		//		YathzeeSpel.DobbelRij.add(Dobbelsteen.geworpen);
+				
 				System.out.println("Nog een rondje");
 				
 			}
@@ -51,6 +62,8 @@ class YathzeeSpel {
 }
 
 class Dobbelsteen {
+		int [] geworpen = new int [5];
+		int d1;
 		
 		int Werpen() {
 			Random getal = new Random();
@@ -61,6 +74,18 @@ class Dobbelsteen {
 
 
 /*
+ * class Dobbelsteen {
+		int [] geworpen = new int [5];
+		int d1;
+		
+		int Werpen() {
+			Random getal = new Random();
+			int d1 = getal.nextInt(5)+1;
+			return d1;
+		}
+}
+
+
 class Gooien {
 	int[] dobbelsteen = new int[5];
 			for (int i =1; i<7; i++) {
